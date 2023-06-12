@@ -5,6 +5,7 @@ const cors = require('cors')
 const app = express()
 const joi = require('joi')
 const userRouter = require('./router/user')
+const myRouter = require('./router/my')
 const { expressjwt: jwt } = require('express-jwt')
 const config = require('./config')
 
@@ -23,6 +24,7 @@ app.use(function(req, res, next) {
 })
 app.use(jwt({ secret: config.jwtSecretKey, algorithms: ["HS256"] }).unless({path: [/^\/api/]}))
 app.use('/api',userRouter)
+app.use('/my',myRouter)
 app.use(cors())
 
 // 全局错误中间件
